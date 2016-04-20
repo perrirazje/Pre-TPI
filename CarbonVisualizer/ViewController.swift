@@ -204,18 +204,21 @@ class ViewController: UIViewController {
         PyramidNode.position = SCNVector3Make(0, -5, 0)
         PyraNode.addChildNode(PyramidNode)
         
+        // Add texture 1
         PyramidNode.geometry?.firstMaterial!.diffuse.contents="/Users/perrirazje/Downloads/Swift.png"
         
         let Pyramid2Node = SCNNode(geometry: Cylinder2())
         Pyramid2Node.position = SCNVector3Make(0, 0, 0)
         PyraNode.addChildNode(Pyramid2Node)
         
+        // Add texture 2
         Pyramid2Node.geometry?.firstMaterial!.diffuse.contents="/Users/perrirazje/Downloads/Swift2.png"
         
         let Pyramid3Node = SCNNode(geometry: Cylinder3())
         Pyramid3Node.position = SCNVector3Make(0, 5, 0)
         PyraNode.addChildNode(Pyramid3Node)
         
+        // Add texture 3
         Pyramid3Node.geometry?.firstMaterial!.diffuse.contents="/Users/perrirazje/Downloads/Swift3.png"
         
         return PyraNode
