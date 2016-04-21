@@ -52,6 +52,10 @@ class ViewController: UIViewController {
     let cameraNode = SCNNode()
     var counter = 0
     var timer = NSTimer()
+    let spin = CABasicAnimation(keyPath: "rotation")
+            let PyraNode1 = SCNNode()
+            let PyraNode2 = SCNNode()
+                    let PyraNode3 = SCNNode()
     
     @IBOutlet weak var label: UILabel!
     
@@ -78,9 +82,9 @@ class ViewController: UIViewController {
     // called every time interval from the timer
     @IBAction func ButtonPressed(sender: AnyObject) {
         
-        let Random1 = arc4random_uniform(5) + 1;
-        let Random2 = arc4random_uniform(5) + 1;
-        let Random3 = arc4random_uniform(5) + 1;
+        let Random1 = arc4random_uniform(4) + 1;
+        let Random2 = arc4random_uniform(4) + 1;
+        let Random3 = arc4random_uniform(4) + 1;
         
         var StringRandom = "\(Random3)\(Random1)\(Random2)"
         
@@ -88,10 +92,25 @@ class ViewController: UIViewController {
         let RandomDone2 : Double = Double(Random2)
         let RandomDone3 : Double = Double(Random3)
         
+        // Use from-to to explicitly make a full rotation around z
+        spin.fromValue = NSValue(SCNVector4: SCNVector4(x: 0, y: 1, z: 0, w: 0))
+        spin.toValue = NSValue(SCNVector4: SCNVector4(x: 0, y: 1, z: 0, w: Float(2 * M_PI)))
+        spin.duration = RandomDone1
+        PyraNode1.addAnimation(spin, forKey: "spin around")
+        
+        // Use from-to to explicitly make a full rotation around z
+        spin.fromValue = NSValue(SCNVector4: SCNVector4(x: 0, y: 1, z: 0, w: 0))
+        spin.toValue = NSValue(SCNVector4: SCNVector4(x: 0, y: 1, z: 0, w: Float(2 * M_PI)))
+        spin.duration = RandomDone2
+        PyraNode2.addAnimation(spin, forKey: "spin around")
+        
+        // Use from-to to explicitly make a full rotation around z
+        spin.fromValue = NSValue(SCNVector4: SCNVector4(x: 0, y: 1, z: 0, w: 0))
+        spin.toValue = NSValue(SCNVector4: SCNVector4(x: 0, y: 1, z: 0, w: Float(2 * M_PI)))
+        spin.duration = RandomDone3
+        PyraNode3.addAnimation(spin, forKey: "spin around")
+        
         NameButton.setTitle(StringRandom, forState: UIControlState.Normal)
-        View1.rotate360Degrees(RandomDone1, completionDelegate: self)
-        View2.rotate360Degrees(RandomDone2, completionDelegate: self)
-        View3.rotate360Degrees(RandomDone3, completionDelegate: self)
     }
     
     // Geometry
@@ -116,7 +135,7 @@ class ViewController: UIViewController {
         sceneSetup3()
         geometryNode = allPyra3()
         View3.scene!.rootNode.addChildNode(geometryNode)
-    }
+            }
     
     // MARK: Scene
     func sceneSetup1() {
@@ -127,6 +146,8 @@ class ViewController: UIViewController {
         cameraNode.camera = SCNCamera()
         cameraNode.position = SCNVector3Make(0, 0, 30)
         cameraNode.rotation = SCNVector4Make(0, 0, 1, CFloat( -M_PI_4 ) * 2 )
+        cameraNode.eulerAngles.x = Float(-M_PI)
+        cameraNode.eulerAngles.y = Float(-2 * -M_PI)
         scene.rootNode.addChildNode(cameraNode)
         //self.view.userInteractionEnabled = false
 
@@ -266,44 +287,47 @@ class ViewController: UIViewController {
     }
     func allPyra1() -> SCNNode {
         
-        let PyraNode = SCNNode()
-        
         let PyramidNode = SCNNode(geometry: Cylinder())
         PyramidNode.position = SCNVector3Make(0, 0, 0)
-        PyraNode.addChildNode(PyramidNode)
+        
+
+
+        
+        
+        PyraNode1.addChildNode(PyramidNode)
         
         // Add texture 1
         PyramidNode.geometry?.firstMaterial!.diffuse.contents="/Users/perrirazje/Downloads/Swift.png"
 
         
-        return PyraNode
+        return PyraNode1
     }
     func allPyra2() -> SCNNode {
         
-        let PyraNode = SCNNode()
+
         
         let PyramidNode = SCNNode(geometry: Cylinder2())
         PyramidNode.position = SCNVector3Make(0, 4, 0)
-        PyraNode.addChildNode(PyramidNode)
+        
+        PyraNode2.addChildNode(PyramidNode)
         
         // Add texture 1
         PyramidNode.geometry?.firstMaterial!.diffuse.contents="/Users/perrirazje/Downloads/Swift.png"
         
         
-        return PyraNode
+        return PyraNode2
     }
     func allPyra3() -> SCNNode {
         
-        let PyraNode = SCNNode()
-        
         let PyramidNode = SCNNode(geometry: Cylinder3())
         PyramidNode.position = SCNVector3Make(0, -4, 0)
-        PyraNode.addChildNode(PyramidNode)
+        
+        PyraNode3.addChildNode(PyramidNode)
         
         // Add texture 1
         PyramidNode.geometry?.firstMaterial!.diffuse.contents="/Users/perrirazje/Downloads/Swift.png"
         
         
-        return PyraNode
+        return PyraNode3
     }
 }
