@@ -45,7 +45,9 @@ class ViewController: UIViewController {
     // UI
     @IBOutlet weak var geometryLabel: UILabel!
     @IBOutlet weak var sceneView: SCNView!
-    
+    @IBOutlet weak var View1: SCNView!
+    @IBOutlet weak var View2: SCNView!
+    @IBOutlet weak var View3: SCNView!
     
     let cameraNode = SCNNode()
     var counter = 0
@@ -75,9 +77,21 @@ class ViewController: UIViewController {
     
     // called every time interval from the timer
     @IBAction func ButtonPressed(sender: AnyObject) {
-        NameButton.setTitle("Play", forState: UIControlState.Normal)
-        sceneView.rotate360Degrees(2.0, completionDelegate: self)
-        //sceneView.transform = rotateByXForever(0, y: 5, z: 0, duration: 2)
+        
+        let Random1 = arc4random_uniform(5) + 1;
+        let Random2 = arc4random_uniform(5) + 1;
+        let Random3 = arc4random_uniform(5) + 1;
+        
+        var StringRandom = "\(Random3)\(Random1)\(Random2)"
+        
+        let RandomDone1 : Double = Double(Random1)
+        let RandomDone2 : Double = Double(Random2)
+        let RandomDone3 : Double = Double(Random3)
+        
+        NameButton.setTitle(StringRandom, forState: UIControlState.Normal)
+        View1.rotate360Degrees(RandomDone1, completionDelegate: self)
+        View2.rotate360Degrees(RandomDone2, completionDelegate: self)
+        View3.rotate360Degrees(RandomDone3, completionDelegate: self)
     }
     
     // Geometry
@@ -93,13 +107,19 @@ class ViewController: UIViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-                sceneSetup()
-        geometryNode = allPyra()
-        sceneView.scene!.rootNode.addChildNode(geometryNode)
+                sceneSetup1()
+        geometryNode = allPyra1()
+        View1.scene!.rootNode.addChildNode(geometryNode)
+        sceneSetup2()
+        geometryNode = allPyra2()
+        View2.scene!.rootNode.addChildNode(geometryNode)
+        sceneSetup3()
+        geometryNode = allPyra3()
+        View3.scene!.rootNode.addChildNode(geometryNode)
     }
     
     // MARK: Scene
-    func sceneSetup() {
+    func sceneSetup1() {
         // 1
         let scene = SCNScene()
         
@@ -113,12 +133,56 @@ class ViewController: UIViewController {
         
         
         let panRecognizer = UIPanGestureRecognizer(target: self, action: "panGesture:")
-        sceneView.addGestureRecognizer(panRecognizer)
+        View1.addGestureRecognizer(panRecognizer)
         
         // 3
-        sceneView.scene = scene
+        View1.scene = scene
         
-        sceneView.allowsCameraControl = true
+        View1.allowsCameraControl = true
+        
+    }
+    // MARK: Scene
+    func sceneSetup2() {
+        // 1
+        let scene = SCNScene()
+        
+        
+        cameraNode.camera = SCNCamera()
+        cameraNode.position = SCNVector3Make(0, 0, 30)
+        cameraNode.rotation = SCNVector4Make(0, 0, 1, CFloat( -M_PI_4 ) * 2 )
+        scene.rootNode.addChildNode(cameraNode)
+        //self.view.userInteractionEnabled = false
+        
+        
+        
+        let panRecognizer = UIPanGestureRecognizer(target: self, action: "panGesture:")
+        View2.addGestureRecognizer(panRecognizer)
+        
+        // 3
+        View2.scene = scene
+        
+        View2.allowsCameraControl = true
+        
+    }
+    // MARK: Scene
+    func sceneSetup3() {
+        // 1
+        let scene = SCNScene()
+        
+        
+        cameraNode.camera = SCNCamera()
+        cameraNode.position = SCNVector3Make(0, 0, 30)
+        cameraNode.rotation = SCNVector4Make(0, 0, 1, CFloat( -M_PI_4 ) * 2 )
+        scene.rootNode.addChildNode(cameraNode)
+        //self.view.userInteractionEnabled = false
+        
+        let panRecognizer = UIPanGestureRecognizer(target: self, action: "panGesture:")
+        View3.addGestureRecognizer(panRecognizer)
+        
+        // 3
+        View3.scene = scene
+        
+        View3.allowsCameraControl = true
         
     }
     
@@ -140,10 +204,14 @@ class ViewController: UIViewController {
         geometryNode.removeFromParentNode()
         currentAngle = 0.0
 
-            geometryNode = allPyra()
+            geometryNode = allPyra1()
+        geometryNode = allPyra3()
+        geometryNode = allPyra2()
         
         // 3
         sceneView.scene!.rootNode.addChildNode(geometryNode)
+        View2.scene!.rootNode.addChildNode(geometryNode)
+        View3.scene!.rootNode.addChildNode(geometryNode)
     }
     
     // MARK: Style
@@ -196,30 +264,45 @@ class ViewController: UIViewController {
         // 4
         return Cylinder3
     }
-    func allPyra() -> SCNNode {
+    func allPyra1() -> SCNNode {
         
         let PyraNode = SCNNode()
         
         let PyramidNode = SCNNode(geometry: Cylinder())
-        PyramidNode.position = SCNVector3Make(0, -5, 0)
+        PyramidNode.position = SCNVector3Make(0, 0, 0)
+        PyraNode.addChildNode(PyramidNode)
+        
+        // Add texture 1
+        PyramidNode.geometry?.firstMaterial!.diffuse.contents="/Users/perrirazje/Downloads/Swift.png"
+
+        
+        return PyraNode
+    }
+    func allPyra2() -> SCNNode {
+        
+        let PyraNode = SCNNode()
+        
+        let PyramidNode = SCNNode(geometry: Cylinder2())
+        PyramidNode.position = SCNVector3Make(0, 4, 0)
         PyraNode.addChildNode(PyramidNode)
         
         // Add texture 1
         PyramidNode.geometry?.firstMaterial!.diffuse.contents="/Users/perrirazje/Downloads/Swift.png"
         
-        let Pyramid2Node = SCNNode(geometry: Cylinder2())
-        Pyramid2Node.position = SCNVector3Make(0, 0, 0)
-        PyraNode.addChildNode(Pyramid2Node)
         
-        // Add texture 2
-        Pyramid2Node.geometry?.firstMaterial!.diffuse.contents="/Users/perrirazje/Downloads/Swift2.png"
+        return PyraNode
+    }
+    func allPyra3() -> SCNNode {
         
-        let Pyramid3Node = SCNNode(geometry: Cylinder3())
-        Pyramid3Node.position = SCNVector3Make(0, 5, 0)
-        PyraNode.addChildNode(Pyramid3Node)
+        let PyraNode = SCNNode()
         
-        // Add texture 3
-        Pyramid3Node.geometry?.firstMaterial!.diffuse.contents="/Users/perrirazje/Downloads/Swift3.png"
+        let PyramidNode = SCNNode(geometry: Cylinder3())
+        PyramidNode.position = SCNVector3Make(0, -4, 0)
+        PyraNode.addChildNode(PyramidNode)
+        
+        // Add texture 1
+        PyramidNode.geometry?.firstMaterial!.diffuse.contents="/Users/perrirazje/Downloads/Swift.png"
+        
         
         return PyraNode
     }
