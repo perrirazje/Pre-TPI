@@ -41,6 +41,7 @@ class ViewController: UIViewController {
     // MARK: Properties
 
     @IBOutlet weak var NameButton: UIButton!
+    @IBOutlet weak var CancelButtomn: UIButton!
     
     // UI
     @IBOutlet weak var geometryLabel: UILabel!
@@ -49,13 +50,25 @@ class ViewController: UIViewController {
     @IBOutlet weak var View2: SCNView!
     @IBOutlet weak var View3: SCNView!
     
+    
     let cameraNode = SCNNode()
     var counter = 0
-    var timer = NSTimer()
     let spin = CABasicAnimation(keyPath: "rotation")
+    var timer = NSTimer()
+
             let PyraNode1 = SCNNode()
             let PyraNode2 = SCNNode()
                     let PyraNode3 = SCNNode()
+    
+    let Random1Cancel = arc4random_uniform(9);
+    let Random2Cancel = arc4random_uniform(9);
+    let Random3Cancel = arc4random_uniform(9);
+    
+    let Random1Play = arc4random_uniform(2) + 1;
+    let Random2Play = arc4random_uniform(2) + 1;
+    let Random3Play = arc4random_uniform(2) + 1;
+    
+    
     
     @IBOutlet weak var label: UILabel!
     
@@ -77,41 +90,79 @@ class ViewController: UIViewController {
         let rotate = SCNAction.rotateByX(x, y: y, z: z, duration: duration)
         return SCNAction.repeatActionForever(rotate)
     }
-
+    
+    func pauseAnimationForKey(_key: String) {
+        
+    }
     
     // called every time interval from the timer
     @IBAction func ButtonPressed(sender: AnyObject) {
         
-        let Random1 = arc4random_uniform(4) + 1;
-        let Random2 = arc4random_uniform(4) + 1;
-        let Random3 = arc4random_uniform(4) + 1;
+        var StringRandom = "\(Random3Play)\(Random1Play)\(Random2Play)"
         
-        var StringRandom = "\(Random3)\(Random1)\(Random2)"
+        let RandomDone1 : Double = Double(Random1Play)
+        let RandomDone2 : Double = Double(Random2Play)
+        let RandomDone3 : Double = Double(Random3Play)
         
-        let RandomDone1 : Double = Double(Random1)
-        let RandomDone2 : Double = Double(Random2)
-        let RandomDone3 : Double = Double(Random3)
         
         // Use from-to to explicitly make a full rotation around z
         spin.fromValue = NSValue(SCNVector4: SCNVector4(x: 0, y: 1, z: 0, w: 0))
         spin.toValue = NSValue(SCNVector4: SCNVector4(x: 0, y: 1, z: 0, w: Float(2 * M_PI)))
         spin.duration = RandomDone1
+        spin.repeatDuration = .infinity
+        spin.speed = 1.0
         PyraNode1.addAnimation(spin, forKey: "spin around")
         
         // Use from-to to explicitly make a full rotation around z
         spin.fromValue = NSValue(SCNVector4: SCNVector4(x: 0, y: 1, z: 0, w: 0))
         spin.toValue = NSValue(SCNVector4: SCNVector4(x: 0, y: 1, z: 0, w: Float(2 * M_PI)))
         spin.duration = RandomDone2
+        spin.speed = 1.0
+        spin.repeatDuration = .infinity
         PyraNode2.addAnimation(spin, forKey: "spin around")
-        
+
         // Use from-to to explicitly make a full rotation around z
         spin.fromValue = NSValue(SCNVector4: SCNVector4(x: 0, y: 1, z: 0, w: 0))
         spin.toValue = NSValue(SCNVector4: SCNVector4(x: 0, y: 1, z: 0, w: Float(2 * M_PI)))
         spin.duration = RandomDone3
+        spin.repeatDuration = .infinity
+        spin.speed = 1.0
         PyraNode3.addAnimation(spin, forKey: "spin around")
-        
         NameButton.setTitle(StringRandom, forState: UIControlState.Normal)
+        CancelButtomn.setTitle("Stop", forState: UIControlState.Normal)
     }
+    
+    func runAfterDelay(delay: NSTimeInterval, block: dispatch_block_t) {
+        let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay * Double(NSEC_PER_SEC)))
+        dispatch_after(time, dispatch_get_main_queue(), block)
+    }
+    
+    @IBAction func Cancel(sender: AnyObject) {
+        spin.speed = 0.0
+        spin.timeOffset = 0.0
+        
+        var StringRandom = "\(Random3Cancel)\(Random1Cancel)\(Random2Cancel)"
+        
+        let RandomDone1 : Double = Double(Random1Cancel)
+        let RandomDone2 : Double = Double(Random2Cancel)
+        let RandomDone3 : Double = Double(Random3Cancel)
+        
+        runAfterDelay(RandomDone1) {
+        
+            self.PyraNode1.pauseAnimationForKey("spin around")
+        }
+        runAfterDelay(RandomDone2) {
+            
+            self.PyraNode2.pauseAnimationForKey("spin around")
+        }
+        runAfterDelay(RandomDone3) {
+            
+            self.PyraNode3.pauseAnimationForKey("spin around")
+        }
+        CancelButtomn.setTitle(StringRandom, forState: UIControlState.Normal)
+        NameButton.setTitle("Play", forState: UIControlState.Normal)
+    }
+    
     
     // Geometry
     var geometryNode: SCNNode = SCNNode()
