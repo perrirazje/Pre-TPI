@@ -89,7 +89,7 @@ class ViewController: UIViewController {
         
         let Random1Play = arc4random_uniform(3) + 1;
         let Random2Play = arc4random_uniform(3) + 1;
-        let Random3Play = arc4random_uniform(3) + 1;
+        var Random3Play = arc4random_uniform(3) + 1;
         
         var StringRandomPlay = "\(Random3Play)\(Random1Play)\(Random2Play)"
 
@@ -125,17 +125,69 @@ class ViewController: UIViewController {
         NameButton.setTitle(StringRandomPlay, forState: UIControlState.Normal)
         //CancelButtomn.setTitle("Stop", forState: UIControlState.Normal)
         
-        let array = [1, 2, 3, 5]
+        let array1 = [1, 4, 6, 9] // 1 Rouge / 4 Vert / 6 Violet / 9 Rose
+        let array2 = [2, 3, 7, 8] // 2 Rouge / 3 Violet / 7 Rose / 8 Vert
+        let array3 = [1, 3, 5, 7] // 1 Vert / 3 Rouge / 5 Rose / 7 Violet
         
-        let Random1Cancel = array[Int(arc4random_uniform(UInt32(array.count)))]
-        let Random2Cancel = arc4random_uniform(9) + 1;
-        let Random3Cancel = arc4random_uniform(9) + 1;
+        var RandomDone1 : Double = 0.0
+        var RandomDone2 : Double = 0.0
+        var RandomDone3 : Double = 0.0
         
-        var RandomDone1 = Double(Random1Cancel)
-        let RandomDone2 : Double = Double(Random2Cancel)
-        let RandomDone3 : Double = Double(Random3Cancel)
+        if RandomPlay1 == 1
+        {
+            let Random1Cancel = array1[Int(arc4random_uniform(UInt32(array1.count)))]
+            RandomDone1 = Double(Random1Cancel)
+        }
         
-        var StringRandomDone = "\(RandomDone1)"
+        if RandomPlay1 == 2
+        {
+            let Random1Cancel = array2[Int(arc4random_uniform(UInt32(array2.count)))]
+            RandomDone1 = Double(Random1Cancel)
+        }
+        
+        if RandomPlay1 == 3
+        {
+            let Random1Cancel = array3[Int(arc4random_uniform(UInt32(array3.count)))]
+            RandomDone1 = Double(Random1Cancel)
+        }
+        
+        if RandomPlay2 == 1
+        {
+            let Random2Cancel = array1[Int(arc4random_uniform(UInt32(array1.count)))]
+            RandomDone2 = Double(Random2Cancel)
+        }
+        
+        if RandomPlay2 == 2
+        {
+            let Random2Cancel = array2[Int(arc4random_uniform(UInt32(array2.count)))]
+            RandomDone2 = Double(Random2Cancel)
+        }
+        
+        if RandomPlay2 == 3
+        {
+            let Random2Cancel = array3[Int(arc4random_uniform(UInt32(array3.count)))]
+            RandomDone2 = Double(Random2Cancel)
+        }
+        
+        if RandomPlay3 == 1.0
+        {
+            let Random3Cancel = array1[Int(arc4random_uniform(UInt32(array1.count)))]
+            RandomDone3 = Double(Random3Cancel)
+        }
+        
+        if RandomPlay3 == 2.0
+        {
+            let Random3Cancel = array2[Int(arc4random_uniform(UInt32(array2.count)))]
+            RandomDone3 = Double(Random3Cancel)
+        }
+        
+        if RandomPlay3 == 3.0
+        {
+            let Random3Cancel = array3[Int(arc4random_uniform(UInt32(array3.count)))]
+            RandomDone3 = Double(Random3Cancel)
+        }
+        
+        var StringRandomDone = "\(RandomDone3)\(RandomDone1)\(RandomDone2)"
         
         runAfterDelay(RandomDone1) {
             
@@ -157,6 +209,14 @@ class ViewController: UIViewController {
         }
         CancelButtomn.setTitle(StringRandomDone, forState: UIControlState.Normal)
         //NameButton.setTitle("Play", forState: UIControlState.Normal)
+        
+        let alertController = UIAlertController(title: "Résultat", message:
+            "Vous avez gagné", preferredStyle: UIAlertControllerStyle.Alert)
+        alertController.addAction(UIAlertAction(title: "Fermer", style: UIAlertActionStyle.Default,handler: nil))
+        
+        self.presentViewController(alertController, animated: true, completion: nil)
+        
+        
     }
     
     func runAfterDelay(delay: NSTimeInterval, block: dispatch_block_t) {

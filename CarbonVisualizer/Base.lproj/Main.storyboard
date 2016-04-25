@@ -38,7 +38,7 @@
                                 <color key="backgroundColor" red="0.63921568630000003" green="0.63921568630000003" blue="0.63921568630000003" alpha="1" colorSpace="calibratedRGB"/>
                             </sceneKitView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Agb-tZ-c7L">
-                                <rect key="frame" x="183" y="399" width="32" height="30"/>
+                                <rect key="frame" x="183" y="399" width="91" height="30"/>
                                 <state key="normal" title="Stop"/>
                                 <connections>
                                     <action selector="Cancel:" destination="kQC-t8-k2Y" eventType="touchDown" id="cW4-fr-1io"/>
