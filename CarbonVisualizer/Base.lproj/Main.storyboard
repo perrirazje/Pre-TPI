@@ -26,7 +26,7 @@
                                 <color key="backgroundColor" red="0.63921568630000003" green="0.63921568630000003" blue="0.63921568630000003" alpha="1" colorSpace="calibratedRGB"/>
                             </sceneKitView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aaW-z3-itG" userLabel="answerButtonA">
-                                <rect key="frame" x="130" y="399" width="30" height="30"/>
+                                <rect key="frame" x="146" y="399" width="30" height="30"/>
                                 <accessibility key="accessibilityConfiguration" label="answerButtonA"/>
                                 <state key="normal" title="Play"/>
                                 <connections>
@@ -37,18 +37,10 @@
                                 <rect key="frame" x="209" y="85" width="200" height="459"/>
                                 <color key="backgroundColor" red="0.63921568630000003" green="0.63921568630000003" blue="0.63921568630000003" alpha="1" colorSpace="calibratedRGB"/>
                             </sceneKitView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Agb-tZ-c7L">
-                                <rect key="frame" x="183" y="399" width="91" height="30"/>
-                                <state key="normal" title="Stop"/>
-                                <connections>
-                                    <action selector="Cancel:" destination="kQC-t8-k2Y" eventType="touchDown" id="cW4-fr-1io"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.63921568630000003" green="0.63921568630000003" blue="0.63921568630000003" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <connections>
-                        <outlet property="CancelButtomn" destination="Agb-tZ-c7L" id="iK3-Iv-Pb5"/>
                         <outlet property="NameButton" destination="aaW-z3-itG" id="BAb-Ia-Zsy"/>
                         <outlet property="View1" destination="zqT-rc-NGF" id="0bd-Sp-oNw"/>
                         <outlet property="View2" destination="vzE-tj-iMp" id="T9s-ob-cQd"/>

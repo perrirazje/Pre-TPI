@@ -87,6 +87,8 @@ class ViewController: UIViewController {
     // called every time interval from the timer
     @IBAction func ButtonPressed(sender: AnyObject) {
         
+        NameButton.userInteractionEnabled = false
+        
         let Random1Play = arc4random_uniform(3) + 1;
         let Random2Play = arc4random_uniform(3) + 1;
         var Random3Play = arc4random_uniform(3) + 1;
@@ -132,104 +134,283 @@ class ViewController: UIViewController {
         var RandomDone1 : Double = 0.0
         var RandomDone2 : Double = 0.0
         var RandomDone3 : Double = 0.0
+        var Rot = 0
+        var Green = 0
+        var Purple = 0
+        var Rose = 0
         
         if RandomPlay1 == 1
         {
             let Random1Cancel = array1[Int(arc4random_uniform(UInt32(array1.count)))]
             RandomDone1 = Double(Random1Cancel)
+            if Random1Cancel == 1
+            {
+                Rot++
+            }
+            if Random1Cancel == 4
+            {
+                Green++
+            }
+            if Random1Cancel == 6
+            {
+                Purple++
+            }
+            if Random1Cancel == 9
+            {
+                Rose++
+            }
         }
         
         if RandomPlay1 == 2
         {
             let Random1Cancel = array2[Int(arc4random_uniform(UInt32(array2.count)))]
             RandomDone1 = Double(Random1Cancel)
+            if Random1Cancel == 2
+            {
+                Rot++
+            }
+            if Random1Cancel == 8
+            {
+                Green++
+            }
+            if Random1Cancel == 3
+            {
+                Purple++
+            }
+            if Random1Cancel == 7
+            {
+                Rose++
+            }
         }
         
         if RandomPlay1 == 3
         {
             let Random1Cancel = array3[Int(arc4random_uniform(UInt32(array3.count)))]
             RandomDone1 = Double(Random1Cancel)
+            if Random1Cancel == 3
+            {
+                Rot++
+            }
+            if Random1Cancel == 1
+            {
+                Green++
+            }
+            if Random1Cancel == 7
+            {
+                Purple++
+            }
+            if Random1Cancel == 5
+            {
+                Rose++
+            }
         }
         
         if RandomPlay2 == 1
         {
             let Random2Cancel = array1[Int(arc4random_uniform(UInt32(array1.count)))]
             RandomDone2 = Double(Random2Cancel)
+            if Random2Cancel == 1
+            {
+                Rot++
+            }
+            if Random2Cancel == 4
+            {
+                Green++
+            }
+            if Random2Cancel == 6
+            {
+                Purple++
+            }
+            if Random2Cancel == 9
+            {
+                Rose++
+            }
         }
         
         if RandomPlay2 == 2
         {
             let Random2Cancel = array2[Int(arc4random_uniform(UInt32(array2.count)))]
             RandomDone2 = Double(Random2Cancel)
+            if Random2Cancel == 2
+            {
+                Rot++
+            }
+            if Random2Cancel == 8
+            {
+                Green++
+            }
+            if Random2Cancel == 3
+            {
+                Purple++
+            }
+            if Random2Cancel == 7
+            {
+                Rose++
+            }
         }
         
         if RandomPlay2 == 3
         {
             let Random2Cancel = array3[Int(arc4random_uniform(UInt32(array3.count)))]
             RandomDone2 = Double(Random2Cancel)
+            if Random2Cancel == 3
+            {
+                Rot++
+            }
+            if Random2Cancel == 1
+            {
+                Green++
+            }
+            if Random2Cancel == 7
+            {
+                Purple++
+            }
+            if Random2Cancel == 5
+            {
+                Rose++
+            }
         }
         
         if RandomPlay3 == 1.0
         {
             let Random3Cancel = array1[Int(arc4random_uniform(UInt32(array1.count)))]
             RandomDone3 = Double(Random3Cancel)
+            if Random3Cancel == 1
+            {
+                Rot++
+            }
+            if Random3Cancel == 4
+            {
+                Green++
+            }
+            if Random3Cancel == 6
+            {
+                Purple++
+            }
+            if Random3Cancel == 9
+            {
+                Rose++
+            }
         }
         
         if RandomPlay3 == 2.0
         {
             let Random3Cancel = array2[Int(arc4random_uniform(UInt32(array2.count)))]
             RandomDone3 = Double(Random3Cancel)
+            if Random3Cancel == 2
+            {
+                Rot++
+            }
+            if Random3Cancel == 8
+            {
+                Green++
+            }
+            if Random3Cancel == 3
+            {
+                Purple++
+            }
+            if Random3Cancel == 7
+            {
+                Rose++
+            }
         }
         
         if RandomPlay3 == 3.0
         {
             let Random3Cancel = array3[Int(arc4random_uniform(UInt32(array3.count)))]
             RandomDone3 = Double(Random3Cancel)
+            if Random3Cancel == 3
+            {
+                Rot++
+            }
+            if Random3Cancel == 1
+            {
+                Green++
+            }
+            if Random3Cancel == 7
+            {
+                Purple++
+            }
+            if Random3Cancel == 5
+            {
+                Rose++
+            }
         }
         
         var StringRandomDone = "\(RandomDone3)\(RandomDone1)\(RandomDone2)"
+        
+        var Finished = 0
         
         runAfterDelay(RandomDone1) {
             
             self.spin.speed = 0.0
             self.spin.timeOffset = 0.0
             self.PyraNode1.pauseAnimationForKey("spin around")
+            Finished++
         }
         runAfterDelay(RandomDone2) {
             
             self.spin.speed = 0.0
             self.spin.timeOffset = 0.0
             self.PyraNode2.pauseAnimationForKey("spin around")
+            Finished++
         }
         runAfterDelay(RandomDone3) {
             
             self.spin.speed = 0.0
             self.spin.timeOffset = 0.0
             self.PyraNode3.pauseAnimationForKey("spin around")
+            Finished++
         }
-        CancelButtomn.setTitle(StringRandomDone, forState: UIControlState.Normal)
-        //NameButton.setTitle("Play", forState: UIControlState.Normal)
+
+        var RunAfter = 0.0
         
-        let alertController = UIAlertController(title: "Résultat", message:
-            "Vous avez gagné", preferredStyle: UIAlertControllerStyle.Alert)
-        alertController.addAction(UIAlertAction(title: "Fermer", style: UIAlertActionStyle.Default,handler: nil))
+        if RandomDone1 > RandomDone2
+        {
+            if RandomDone1 > RandomDone3
+            {
+                RunAfter = RandomDone1
+            } else
+            {
+                RunAfter = RandomDone3
+            }
+        } else if RandomDone2 > RandomDone3
+        {
+            RunAfter = RandomDone2
+        } else
+        {
+            RunAfter = RandomDone3
+        }
         
-        self.presentViewController(alertController, animated: true, completion: nil)
-        
-        
+        runAfterDelay(RunAfter+1)
+            {
+        if Finished == 3
+        {
+        if Purple == 3 || Green == 3 || Rose == 3 || Rot == 3
+        {
+            let alertController = UIAlertController(title: "Résultat", message:
+                "Vous avez gagné", preferredStyle: UIAlertControllerStyle.Alert)
+            alertController.addAction(UIAlertAction(title: "Fermer", style: UIAlertActionStyle.Default,handler: nil))
+            
+            self.presentViewController(alertController, animated: true, completion: nil)
+            self.NameButton.userInteractionEnabled = true
+        } else
+        {
+            let alertController = UIAlertController(title: "Résultat", message:
+                "Vous n'avez pas gagné", preferredStyle: UIAlertControllerStyle.Alert)
+            alertController.addAction(UIAlertAction(title: "Fermer", style: UIAlertActionStyle.Default,handler: nil))
+            
+            self.presentViewController(alertController, animated: true, completion: nil)
+            self.NameButton.userInteractionEnabled = true
+        }
+        }
+        }
     }
     
     func runAfterDelay(delay: NSTimeInterval, block: dispatch_block_t) {
         let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay * Double(NSEC_PER_SEC)))
         dispatch_after(time, dispatch_get_main_queue(), block)
     }
-    
-    @IBAction func Cancel(sender: AnyObject) {
-        spin.speed = 0.0
-        spin.timeOffset = 0.0
-
-    }
-    
     
     // Geometry
     var geometryNode: SCNNode = SCNNode()
