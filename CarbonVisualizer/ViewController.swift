@@ -50,6 +50,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var View2: SCNView!
     @IBOutlet weak var View3: SCNView!
     
+    @IBOutlet var View4: UIView!
     
     let cameraNode = SCNNode()
     var counter = 0
